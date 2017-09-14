@@ -1,0 +1,16 @@
+[Unit]
+Description=Drone Agent
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/var/lib/drone
+ExecStart=/usr/local/bin/drone agent
+Restart=always
+Environment=DRONE_SECRET=_DRONE_SECRET DRONE_SERVER=ws://localhost/ws/broker
+
+[Install]
+WantedBy=multi-user.target

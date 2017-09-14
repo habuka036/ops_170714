@@ -1,0 +1,16 @@
+[Unit]
+Description=Drone Server
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/var/lib/drone
+ExecStart=/usr/local/bin/drone server
+Restart=always
+Environment=DRONE_SECRET=_DRONE_SECRET DRONE_HOST=_DRONE_HOST GOGS_HOST=_GOGS_HOST DRONE_SERVER_ADDR=:80 DRONE_OPEN=true DRONE_GOGS=true DRONE_GOGS_URL=http://_GOGS_HOST/
+
+[Install]
+WantedBy=multi-user.target

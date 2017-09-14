@@ -1,0 +1,21 @@
+pipeline:
+  build:
+    image: hashicorp/terraform
+    commands:
+      - git clone http://gogs.cicd.habuka.jp/osamu.habuka/3tier
+      - cd 3tier/
+      - terraform init
+      - terraform apply
+
+  test:
+    image: aelsabbahy/goss
+    commands:
+      - goss -v
+
+  slack:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/XXXXXXXXX/YYYYYYYYY/ZZZZZZZZZZZZZZZZZZZZZZZZ
+    channel: cicd
+    username: drone
+    when:
+      status: [ success, failure ]
